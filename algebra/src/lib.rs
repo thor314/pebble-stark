@@ -1,4 +1,4 @@
 // todo
 mod polymorphic;
 
-pub use polymorphic::FieldElementVector;
+pub use polymorphic::{ConstFieldElementSpan, FieldElementVector};

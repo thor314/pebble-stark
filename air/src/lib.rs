@@ -4,9 +4,11 @@
 #![allow(dead_code)]
 // #![feature(generic_const_exprs)]
 
+mod boundary;
+
 use std::{collections::HashMap, option::Option, vec::Vec};
 
-use algebra::FieldElementVector;
+use algebra::{ConstFieldElementSpan, FieldElementVector};
 use ark_ff::Field;
 
 // doc(tk)
@@ -15,19 +17,14 @@ pub trait CompositionPolynomial<F: Field> {}
 
 // doc(tk)
 pub trait Air<F: Field> {
-  // todo(tk): constructor in trait?
-  fn new(trace_length: usize) -> Self
-  where Self: Sized {
-    assert!(trace_length.is_power_of_two(), "trace length must be power of 2");
-
-    todo!()
-  }
+  // note(tk): constructor trait contract not a good fit here
+  // fn new(trace_length: usize) -> Self where Self: Sized;
 
   /// Creates a CompositionPolynomial object based on the given (verifier-chosen) coefficients.
   fn create_composition_polynomial(
     &self,
-    trace_generator: F,
-    random_coefficients: &[F],
+    trace_generator: &F,
+    random_coefficients: &ConstFieldElementSpan<F>,
     // refactor(tk): dyn bad
   ) -> Box<dyn CompositionPolynomial<F>>;
 
@@ -55,14 +52,7 @@ pub trait Air<F: Field> {
   /// interaction elements. Returns the cloned AIR. Otherwise, this function shouldn't be used.
   // todo: constructor in trait?
   // refactor(tk): dyn bad
-  fn with_interaction_elements(&self, interaction_elms: &FieldElementVector) {
-    // panic if called in release
-    #[cfg(not(debug_assertions))]
-    {
-      panic!("Calling WithInteractionElements in an air with no interaction.");
-    }
-    todo!()
-  }
+  fn with_interaction_elements(&self, interaction_elms: &FieldElementVector);
 
   /// Returns the interaction parameters.
   /// If there is no interaction, returns None.
