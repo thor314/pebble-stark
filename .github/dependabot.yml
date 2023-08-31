@@ -1,0 +1,16 @@
+# Auto-update dependencies. 
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/about-dependabot-version-updates
+
+version: 2
+
+updates:
+  - package-ecosystem: cargo
+    directory: "/"
+    schedule:
+      interval: "daily" # daily, weekly, or monthly 
+    open-pull-requests-limit: 10
+    # ignore:
+    # - dependency-name: example-crate
+    #   versions:
+    #   - 0.1.0
+

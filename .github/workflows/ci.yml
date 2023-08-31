@@ -1,0 +1,37 @@
+# Rust template: https://github.com/actions/starter-workflows/blob/main/ci/rust.yml
+# Resources: https://docs.github.com/en/actions
+# Examples: https://github.com/actions/starter-workflows
+# Process: make small changes, push them, check the Actions tab on github
+# also see templates https://github.com/rust-github/template/tree/main/.github/workflows
+name: Rust
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always # pretty colors
+
+# check and test
+jobs:
+  check-test-fmt:
+    name: Check Test Format
+    runs-on: ubuntu-latest
+    steps:
+      # sets many `with` env defaults. https://github.com/actions/checkout
+    - uses: actions/checkout@v3
+      # run shell commands. must have `-`.
+    - run: bash .github/scripts/check_test_fmt.sh
+  # test:
+  #   name: Test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v3
+  # fmt-check:
+  #   name: Fmt check
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - run: bash .github/scripts/fmt_toolchain.sh
+  #   - run: cargo fmt --all -- --check

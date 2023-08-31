@@ -1,0 +1,19 @@
+# These settings are synced to GitHub by https://probot.github.io/apps/settings/
+# Requires sign up, and allowing Probot to manage your repos.
+
+repository:
+  description: starkware stone prover in Rust
+  #homepage: docs.rs/stone-prover-rs
+  # topics: rust other_topics
+  has_issues: true
+  has_projects: false
+  has_wiki: false
+  has_downloads: true
+  default_branch: main
+  allow_squash_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: false
+  # Manual: allow_auto_merge: true, see https://github.com/probot/settings/issues/402
+  delete_branch_on_merge: true
+
+

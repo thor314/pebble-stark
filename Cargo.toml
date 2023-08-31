@@ -1,0 +1,12 @@
+# [package]
+# authors    =["Thor Kamphefner <thorck@pm.me>"]
+# description="""starkware stone prover in Rust"""
+# edition    ="2021"
+# license    ="Apache2.0"
+# name       ="stone-prover-rs"
+# repository ="https://github.com/thor314/stone-prover-rs"
+# version    ="0.1.0"
+
+[workspace]
+resolver="2"
+members =["air", "algebra", "math", "proof_system", "randomness", "stark", "statement"]
