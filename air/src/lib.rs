@@ -2,18 +2,20 @@
 #![allow(unused_imports)]
 #![allow(unused_variables)]
 #![allow(dead_code)]
-// #![feature(generic_const_exprs)]
 
 mod boundary;
+mod boundary_constraints;
 
 use std::{collections::HashMap, option::Option, vec::Vec};
 
 use algebra::{ConstFieldElementSpan, FieldElementVector};
 use ark_ff::Field;
 
-// doc(tk)
-// refactor(tk): maybe assoc type in Air
-pub trait CompositionPolynomial<F: Field> {}
+/// Temporary type while I figure out what to do with gsl::span
+pub type TempGslSpan<T> = Vec<T>;
+
+// todo(tk): import this from composition_polynomial
+pub trait TmpCompositionPolynomial<F: Field> {}
 
 // doc(tk)
 pub trait Air<F: Field> {
@@ -26,7 +28,7 @@ pub trait Air<F: Field> {
     trace_generator: &F,
     random_coefficients: &ConstFieldElementSpan<F>,
     // refactor(tk): dyn bad
-  ) -> Box<dyn CompositionPolynomial<F>>;
+  ) -> Box<dyn TmpCompositionPolynomial<F>>;
 
   /// Default to zero
   fn get_composition_polynomial_degree_bound(&self) -> usize;
@@ -78,7 +80,6 @@ pub struct InteractionParams {
   // Number of interaction random elements.
   pub n_interaction_elements: usize,
 }
-
 
 pub fn panic_on_release_if(condition: bool, msg: &str) {
   #[cfg(not(debug_assertions))]

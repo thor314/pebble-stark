@@ -11,7 +11,7 @@ use std::collections::{HashMap, VecDeque};
 use algebra::ConstFieldElementSpan;
 use ark_ff::Field;
 
-use crate::{Air, panic_on_release_if};
+use crate::{panic_on_release_if, Air};
 
 /// A simple AIR the describes the contraints:
 /// (column_i(x) - y0_i) / (x - x0_i).
@@ -126,7 +126,7 @@ impl<F: Field> Air<F> for BoundaryAir<F> {
     &self,
     trace_generator: &F,
     random_coefficients: &ConstFieldElementSpan<F>,
-  ) -> Box<dyn crate::CompositionPolynomial<F>> {
+  ) -> Box<dyn crate::TmpCompositionPolynomial<F>> {
     // todo(tk): builder is a bad name for a builder of CompositionPolynomial, commenting until
     // farther into refactor
     //
