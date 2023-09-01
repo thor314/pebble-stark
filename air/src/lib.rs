@@ -4,10 +4,10 @@
 #![allow(dead_code)]
 
 mod boundary;
-mod fibonacci;
 mod boundary_constraints;
 mod components;
 mod cpu;
+mod fibonacci;
 mod trace;
 mod trace_context;
 
