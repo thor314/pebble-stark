@@ -11,7 +11,7 @@ use std::collections::{HashMap, VecDeque};
 use algebra::ConstFieldElementSpan;
 use ark_ff::Field;
 
-use crate::{panic_on_release_if, Air};
+use crate::{assert_on_release, Air};
 
 /// A simple AIR the describes the contraints:
 /// (column_i(x) - y0_i) / (x - x0_i).
@@ -37,7 +37,7 @@ impl<F: Field> BoundaryAir<F> {
     n_columns: usize,
     boundary_conditions: &[BoundaryCondition<F>],
   ) -> Self {
-    panic_on_release_if(trace_length.is_power_of_two(), "trace length must be power of 2");
+    assert_on_release(trace_length.is_power_of_two(), "trace length must be power of 2");
 
     let mut constraints: VecDeque<ConstraintData<F>> =
       VecDeque::with_capacity(boundary_conditions.len());

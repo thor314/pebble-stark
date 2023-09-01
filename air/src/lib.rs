@@ -6,6 +6,7 @@
 mod boundary;
 mod boundary_constraints;
 mod trace;
+mod trace_context;
 
 use std::{collections::HashMap, option::Option, vec::Vec};
 
@@ -63,7 +64,7 @@ pub trait Air<F: Field> {
   // todo: unsure how this is used, ignore for now
   // refactor(tk): dyn bad
   fn with_interaction_elements(&self, interaction_elms: &algebra::FieldElementVector) {
-    panic_on_release_if(true, "Calling WithInteractionElements in an air with no interaction.");
+    assert_on_release(false, "Calling WithInteractionElements in an air with no interaction.");
     todo!()
   }
 }
@@ -82,10 +83,10 @@ pub struct InteractionParams {
   pub n_interaction_elements: usize,
 }
 
-pub fn panic_on_release_if(condition: bool, msg: &str) {
+pub fn assert_on_release(condition: bool, msg: &str) {
   #[cfg(not(debug_assertions))]
   {
-    if condition {
+    if !condition {
       panic!("{}", msg);
     }
   }
