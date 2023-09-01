@@ -41,7 +41,8 @@ pub use crate::periodic_column::PeriodicColumn;
 /// This class is used both to evaluate F( x, y_0, y_1, ...) on a single point, and on entire cosets
 /// using optimizations improving the (amortized) computation time for each point in the coset.
 pub struct CompositionPolynomial<F: Field> {
-  // air: MaybeOwnedPtr<'a, AirT>,
+  // todo(tk): implement MaybeOwnedPtr, unsure how to do this part yet
+  // air: MaybeOwnedPtr<>,
   trace_generator:  F,
   coset_size:       usize,
   periodic_columns: Vec<Option<PeriodicColumn<F>>>,
@@ -53,7 +54,7 @@ pub struct CompositionPolynomial<F: Field> {
 impl<F: Field> CompositionPolynomial<F> {
   /// Users should use the Builder class to build an instance of this class.
   fn new(
-    // air: MaybeOwnedPtr<'a, AirT>,
+    // air: MaybeOwnedPtr<>,
     trace_generator: F,
     coset_size: u64,
     periodic_columns: Vec<Option<PeriodicColumn<F>>>,

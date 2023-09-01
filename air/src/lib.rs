@@ -4,6 +4,7 @@
 #![allow(dead_code)]
 
 mod boundary;
+mod fibonacci;
 mod boundary_constraints;
 mod components;
 mod cpu;
