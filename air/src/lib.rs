@@ -5,6 +5,7 @@
 
 mod boundary;
 mod boundary_constraints;
+mod trace;
 
 use std::{collections::HashMap, option::Option, vec::Vec};
 
