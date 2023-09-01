@@ -2,37 +2,35 @@
 #![allow(unused_imports)]
 #![allow(unused_variables)]
 #![allow(dead_code)]
-// #![feature(generic_const_exprs)]
+
+mod boundary;
+mod boundary_constraints;
+mod components;
+mod cpu;
+mod fibonacci;
+mod trace;
+mod trace_context;
 
 use std::{collections::HashMap, option::Option, vec::Vec};
 
-use algebra::FieldElementVector;
+use algebra::{ConstFieldElementSpan, FieldElementVector};
 use ark_ff::Field;
 
-// doc(tk)
-// refactor(tk): maybe assoc type in Air
-pub trait CompositionPolynomial<F: Field> {}
+/// Temporary type while I figure out what to do with gsl::span
+pub type TempGslSpan<T> = Vec<T>;
+
+// todo(tk): import this from composition_polynomial
+pub trait TmpCompositionPolynomial<F: Field> {}
 
 // doc(tk)
 pub trait Air<F: Field> {
-  // todo(tk): constructor in trait?
-  fn new(trace_length: usize) -> Self
-  where Self: Sized {
-    assert!(trace_length.is_power_of_two(), "trace length must be power of 2");
-
-    todo!()
-  }
-
   /// Creates a CompositionPolynomial object based on the given (verifier-chosen) coefficients.
   fn create_composition_polynomial(
     &self,
-    trace_generator: F,
-    random_coefficients: &[F],
+    trace_generator: &F,
+    random_coefficients: &ConstFieldElementSpan<F>,
     // refactor(tk): dyn bad
-  ) -> Box<dyn CompositionPolynomial<F>>;
-
-  // refactor(tk) - public inner?
-  fn trace_length(&self) -> usize;
+  ) -> Box<dyn TmpCompositionPolynomial<F>>;
 
   /// Default to zero
   fn get_composition_polynomial_degree_bound(&self) -> usize;
@@ -42,31 +40,15 @@ pub trait Air<F: Field> {
   /// order to maintain soundness.
   fn num_random_coefficients(&self) -> usize;
 
-  // refactor(tk): redundant?
-  fn get_num_constraints(&self) -> usize { self.num_random_coefficients() }
-
-  /// Returns a list of pairs (relative_row, col) that define the neighbors needed for the
-  /// constraint.
-  fn get_mask() -> AirMask;
-
-  fn num_columns(&self) -> usize;
-
-  /// When the AIR has interaction (i.e. for debugging and testing), clones the AIR and updates its
-  /// interaction elements. Returns the cloned AIR. Otherwise, this function shouldn't be used.
-  // todo: constructor in trait?
-  // refactor(tk): dyn bad
-  fn with_interaction_elements(&self, interaction_elms: &FieldElementVector) {
-    // panic if called in release
-    #[cfg(not(debug_assertions))]
-    {
-      panic!("Calling WithInteractionElements in an air with no interaction.");
-    }
-    todo!()
-  }
-
   /// Returns the interaction parameters.
   /// If there is no interaction, returns None.
   fn get_interaction_params(&self) -> Option<InteractionParams>;
+
+  /// helper for `get_n_columns_first`
+  fn num_columns(&self) -> usize;
+
+  // refactor(tk): redundant?
+  fn get_num_constraints(&self) -> usize { self.num_random_coefficients() }
 
   /// If air has interaction, returns the number of columns in the first trace;
   /// otherwise, returns the total number of columns.
@@ -75,6 +57,15 @@ pub trait Air<F: Field> {
       Some(params) => params.n_columns_first,
       None => self.num_columns(),
     }
+  }
+
+  /// When the AIR has interaction (i.e. for debugging and testing), clones the AIR and updates its
+  /// interaction elements. Returns the cloned AIR. Otherwise, this function shouldn't be used.
+  // todo: unsure how this is used, ignore for now
+  // refactor(tk): dyn bad
+  fn with_interaction_elements(&self, interaction_elms: &algebra::FieldElementVector) {
+    assert_on_release(false, "Calling WithInteractionElements in an air with no interaction.");
+    todo!()
   }
 }
 
@@ -90,4 +81,13 @@ pub struct InteractionParams {
 
   // Number of interaction random elements.
   pub n_interaction_elements: usize,
+}
+
+pub fn assert_on_release(condition: bool, msg: &str) {
+  #[cfg(not(debug_assertions))]
+  {
+    if !condition {
+      panic!("{}", msg);
+    }
+  }
 }

@@ -9,4 +9,13 @@
 
 [workspace]
 resolver="2"
-members =["air", "algebra", "math", "proof_system", "randomness", "stark", "statement"]
+members=[
+  "air",
+  "algebra",
+  "composition_polynomial",
+  "math",
+  "proof_system",
+  "randomness",
+  "stark",
+  "statement",
+]
