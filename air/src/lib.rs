@@ -23,9 +23,6 @@ pub trait TmpCompositionPolynomial<F: Field> {}
 
 // doc(tk)
 pub trait Air<F: Field> {
-  // note(tk): constructor trait contract not a good fit here
-  // fn new(trace_length: usize) -> Self where Self: Sized;
-
   /// Creates a CompositionPolynomial object based on the given (verifier-chosen) coefficients.
   fn create_composition_polynomial(
     &self,
