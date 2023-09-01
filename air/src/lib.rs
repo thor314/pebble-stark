@@ -5,6 +5,8 @@
 
 mod boundary;
 mod boundary_constraints;
+mod components;
+mod cpu;
 mod trace;
 mod trace_context;
 
