@@ -60,3 +60,16 @@ impl<F: Field> From<Vec<FieldElementVector<F>>> for Trace<F> {
 impl<F: Field> From<Trace<F>> for Vec<TempGslSpan<F>> {
   fn from(val: Trace<F>) -> Self { val.values.into_iter().map(|v| v.into()).collect() }
 }
+
+impl<F: Field> From<(Vec<F>, Vec<F>)> for Trace<F> {
+  fn from(values: (Vec<F>, Vec<F>)) -> Self {
+    if values.0.is_empty() {
+      Trace::default()
+    } else {
+      let width = 2;
+      let length = values.0.len();
+      let values = [values.0, values.1].into_iter().map(|v| v.into()).collect();
+      Trace { width, length, values }
+    }
+  }
+}

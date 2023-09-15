@@ -9,10 +9,16 @@ Initial migration:
 - 10/10 trace_context.h
 - 0/10 trace_test.cc
 
+- fibonacci
+- degree_three_example
+- boundary
+- boundary_constraints
+- components
+- cpu
 
 ## Air notes
 - translating `Air` to a trait, this seems reasonable as `Air` is mostly an ABC
-- can't represent the C++ constructor check in trait, which would require modifying struct state (trace_length)
+- can't represent the C++ constructor check in trait, which would require modifying struct state (trace_length) and break the v-table representation 
 - `CompositionPolynomial` in C++ implementation simply stores a unit struct pointer, I suspect this should be `composition_polynomial::CompositionPolynomial` 
 
 
@@ -34,3 +40,18 @@ this looks like a pretty useless trait, candidate for erasure
 #### Trace test
 come back later
 
+
+### Fibonacci notes
+- 9.5/10 fibonacci_air*
+- fib_air0*
+- fib_air_test.cc
+- fib_trace_context.h
+gonna have to figure out what's goin on here, looks like a type alias.
+```cpp
+#include "starkware/algebra/utils/invoke_template_version.h"
+using FibonacciAirInvokedLayoutTypes = InvokedTypes<std::integral_constant<int, 0>>;
+```
+
+Combining `fibonacci_air.{h,inl}` seems good.
+
+#### 

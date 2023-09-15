@@ -1,4 +1,4 @@
-use std::ops::{Deref, IndexMut, Index};
+use std::ops::{Deref, Index, IndexMut};
 
 use ark_ff::Field;
 
