@@ -10,6 +10,7 @@ use std::collections::{HashMap, VecDeque};
 
 use algebra::ConstFieldElementSpan;
 use ark_ff::Field;
+use composition_polynomial::CompositionPolynomial;
 
 use crate::{assert_on_release, Air};
 
@@ -126,7 +127,7 @@ impl<F: Field> Air<F> for BoundaryAir<F> {
     &self,
     trace_generator: &F,
     random_coefficients: &ConstFieldElementSpan<F>,
-  ) -> Box<dyn crate::TmpCompositionPolynomial<F>> {
+  ) -> Box<CompositionPolynomial<F>> {
     // todo(tk): builder is a bad name for a builder of CompositionPolynomial, commenting until
     // farther into refactor
     //
@@ -143,6 +144,8 @@ impl<F: Field> Air<F> for BoundaryAir<F> {
   fn get_interaction_params(&self) -> Option<crate::InteractionParams> { None }
 
   fn num_columns(&self) -> usize { self.num_columns }
+
+  fn trace_length(&self) -> usize { todo!() }
 }
 
 /// List of tuples (column, x, y) indicating the constraint that column(x)=y.
