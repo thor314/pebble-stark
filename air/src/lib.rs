@@ -55,7 +55,10 @@ pub trait Air<F: Field> {
   /// interaction elements. Returns the cloned AIR. Otherwise, this function shouldn't be used.
   // todo: unsure how this is used, ignore for now
   // refactor(tk): non-idiomatic rust
-  fn with_interaction_elements(&self, interaction_elms: &algebra::FieldElementVector) -> Box<dyn Air<F>> {
+  fn with_interaction_elements(
+    &self,
+    interaction_elms: &algebra::FieldElementVector<F>,
+  ) -> Box<dyn Air<F>> {
     assert_on_release(false, "Calling WithInteractionElements in an Air with no interaction.");
     unreachable!()
   }
