@@ -11,10 +11,12 @@ set -euo pipefail # exit immediately if command ends with non-zero exit status.
 # rustup component add rustfmt
 
 # lint test fmt 
-rustup default nightly && rustup component add clippy rustfmt
+rustup default nightly 
+rustup component add clippy
 cargo clippy -- -Dwarnings
-cargo test --all-features --verbose
-cargo fmt --all -- --check
+# cargo check
+# cargo test --all-features --verbose
+# cargo fmt --all -- --check
 
 # https://taplo.tamasfe.dev/cli/installation/binary.html
 # Binary releases currently broken

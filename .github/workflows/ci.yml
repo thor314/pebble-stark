@@ -13,25 +13,30 @@ on:
 env:
   CARGO_TERM_COLOR: always # pretty colors
 
-# check and test
 jobs:
-  check-test-fmt:
-    name: Check Test Format
+  check:
+    name: Check 
     runs-on: ubuntu-latest
     steps:
       # sets many `with` env defaults. https://github.com/actions/checkout
     - uses: actions/checkout@v3
       # run shell commands. must have `-`.
-    - run: bash .github/scripts/check_test_fmt.sh
-  # test:
-  #   name: Test
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v3
-  # fmt-check:
-  #   name: Fmt check
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v3
-  #   - run: bash .github/scripts/fmt_toolchain.sh
-  #   - run: cargo fmt --all -- --check
+    - run: bash .github/scripts/check.sh
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: bash .github/scripts/test.sh
+  lint:
+    name: Lint 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: bash .github/scripts/lint.sh
+  fmt:
+    name: Fmt
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: bash .github/scripts/fmt.sh

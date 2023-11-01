@@ -2,8 +2,8 @@
 # Requires sign up, and allowing Probot to manage your repos.
 
 repository:
-  description: starkware stone prover in Rust
-  #homepage: docs.rs/stone-prover-rs
+  description: {{description}}
+  #homepage: docs.rs/{{project-name}}
   # topics: rust other_topics
   has_issues: true
   has_projects: false
