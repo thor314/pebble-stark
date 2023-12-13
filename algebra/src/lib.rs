@@ -1,4 +1,6 @@
-#![feature(const_trait_impl)]
+#![allow(unused_imports)]
+#![allow(unused_variables)]
+#![allow(dead_code)]
 // todo
 mod polymorphic;
 mod fields;
