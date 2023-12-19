@@ -7,3 +7,5 @@ edition="2021"
 
 [dependencies]
 ark-ff="0.4.2"
+num-bigint="0.4.4"
+lazy_static="1.4.0"

@@ -1,5 +1,6 @@
 ### Rust ###
 # ref: https://github.com/github/gitignore/blob/main/Rust.gitignore
+.vscode
 
 # exclude compiled files and binaries
 debug/
