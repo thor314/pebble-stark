@@ -196,10 +196,12 @@ struct ConstraintData<F: Field> {
 mod test {
   // mirror: https://github.com/starkware-libs/stone-prover/blob/main/src/starkware/air/boundary/boundary_air_test.cc
   // test for soundness and correctness of the boundary constraint.
-  use std::vec::Vec;
+  use std::{iter::repeat_with, vec::Vec};
 
-  use ark_ff::Field;
-  use ark_std::UniformRand;
+  use ark_ff::{BigInteger, Field, PrimeField, UniformRand};
+  use ark_std::{test_rng, One, Zero};
+  use ark_test_curves::fp128::Fq;
+  use rand::Rng;
 
   use super::*;
 
@@ -210,7 +212,7 @@ mod test {
 
   const N_COLUMNS: usize = 10;
   const N_CONDITIONS: usize = 20;
-  const TRACE_LENGTH: usize = 1024;
+  const TRACE_LENGTH: u64 = 1024;
 
   // This test builds a random trace. It then generate random points to sample on random
   // columns, and creates boundary constraints for them. It then tests that the resulting
@@ -218,39 +220,34 @@ mod test {
   // hold.
   #[test]
   fn correctness() {
-    // TODO(TK 2024-01-09):
-    // getting stuck on what field to use. Come back later.
-    // use ark_test_curves::bls12_381::Fq2 as F;
-    // use ark_test_curves::fp128::Fq as F;
-    // use ark_test_curves::fp128::Fq as F;
-    // let mut rng = ark_std::test_rng();
-    // let rand_val = F::rand(&mut rng);
-    // let rand_val = F::ra(&mut rng);
-    // let mut trace: Vec<Vec<_>> = [0..trace_length]
-    //   .into_iter()
-    //   .map(|_| std::iter::repeat_with(|| F::rand(&mut rng)).take(n_columns).collect::<Vec<F>>())
-    //   .collect();
+    let mut rng = test_rng();
+    let trace: Vec<Vec<_>> = repeat_with(|| {
+      repeat_with(|| <Fq as UniformRand>::rand(&mut rng)).take(N_COLUMNS).collect::<Vec<_>>()
+    })
+    .take(TRACE_LENGTH as usize)
+    .collect();
 
-    //     // Compute correct boundary conditions.
-    //     let mut boundary_conditions = Vec::new();
-    //     for _ in 0..n_conditions {
-    //       let column_index = prng.uniform_int(0, n_columns - 1);
-    //       let point_x = prng.random_field_element();
-    //       let point_y = trace[column_index][prng.uniform_int(0, trace_length - 1)];
+    // Compute correct boundary conditions.
+    let boundary_conditions: Vec<BoundaryCondition<Fq>> = repeat_with(|| {
+      let column_index = rng.gen_range(0..N_COLUMNS) as usize;
+      let point_x = <Fq as UniformRand>::rand(&mut rng);
+      let point_y = <Fq as UniformRand>::rand(&mut rng);
 
-    //       boundary_conditions.push((column_index, point_x, point_y));
-    //     }
+      BoundaryCondition::new(column_index, point_x, point_y)
+    })
+    .take(N_CONDITIONS)
+    .collect();
 
-    //     let air = BoundaryAir::new(trace_length, n_columns, &boundary_conditions);
+    let air = BoundaryAir::new(TRACE_LENGTH, N_COLUMNS, &boundary_conditions);
+    let random_coefficients = repeat_with(|| <Fq as UniformRand>::rand(&mut rng))
+      .take(air.num_random_coefficients())
+      .collect::<Vec<_>>();
+    let actual_degree =
+      crate::test_utils::compute_composition_degree(&air, trace, &random_coefficients);
 
-    //     let random_coefficients =
-    // prng.random_field_element_vector(air.num_random_coefficients());
-
-    //     let actual_degree = compute_composition_degree(&air, trace, &random_coefficients);
-
-    //     // Degree is expected to be trace_length - 2.
-    //     assert_eq!(trace_length - 2, actual_degree);
-    //     assert_eq!(air.get_composition_polynomial_degree_bound() - 2, actual_degree);
+    // Degree is expected to be trace_length - 2.
+    assert_eq!(TRACE_LENGTH - 2, actual_degree);
+    assert_eq!(air.get_composition_polynomial_degree_bound() - 2, actual_degree);
   }
 
   #[test]

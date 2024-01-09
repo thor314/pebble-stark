@@ -13,6 +13,7 @@ members=[
   "air",
   "algebra",
   "composition_polynomial",
+  "fft_utils",
   "math",
   "proof_system",
   "randomness",

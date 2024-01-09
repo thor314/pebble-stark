@@ -8,6 +8,7 @@ mod boundary_constraints;
 mod components;
 mod cpu;
 mod fibonacci;
+mod test_utils;
 mod trace;
 mod trace_context;
 
@@ -18,7 +19,7 @@ use ark_ff::Field;
 use composition_polynomial::CompositionPolynomial;
 
 /// Temporary type while I figure out what to do with gsl::span
-pub type TempGslSpan<T> = Vec<T>;
+pub type GslSpan<T> = Vec<T>;
 
 // todo(tk): import this from composition_polynomial
 // pub trait TmpCompositionPolynomial<F: Field> {}
