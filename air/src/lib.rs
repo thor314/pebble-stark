@@ -25,6 +25,7 @@ pub type TempGslSpan<T> = Vec<T>;
 
 // doc(tk)
 ///
+// TODO(TK 2024-01-09): work in progress trait
 pub trait Air<F: Field> {
   /// Creates a CompositionPolynomial object based on the given (verifier-chosen) coefficients.
   fn create_composition_polynomial(
@@ -33,10 +34,10 @@ pub trait Air<F: Field> {
     random_coefficients: &ConstFieldElementSpan<F>,
   ) -> Box<CompositionPolynomial<F>>;
 
-  fn trace_length(&self) -> usize;
+  fn trace_length(&self) -> u64;
 
   /// Default to zero
-  fn get_composition_polynomial_degree_bound(&self) -> usize;
+  fn get_composition_polynomial_degree_bound(&self) -> u64;
 
   /// Number of random coefficients that are chosen by the verifier and affect the constraint.
   /// They are the coefficients of the linear combination of the constraints and must be random in
@@ -46,7 +47,7 @@ pub trait Air<F: Field> {
   // refactor(tk): redundant?
   fn get_num_constraints(&self) -> usize { self.num_random_coefficients() }
 
-  // get mask
+  // todo: get mask?
 
   /// helper for `get_n_columns_first`
   fn num_columns(&self) -> usize;

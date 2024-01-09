@@ -52,9 +52,10 @@ pub struct CompositionPolynomial<F: Field> {
 }
 
 impl<F: Field> CompositionPolynomial<F> {
-  /// Users should use the Builder class to build an instance of this class.
-  fn new(
-    // air: MaybeOwnedPtr<>,
+  // TODO(TK 2024-01-09): stone uses a builder class to instantiate, making public for shorthand
+  // convenience, revisit in future
+  pub fn new(
+    air: &F, // todo check type
     trace_generator: F,
     coset_size: u64,
     periodic_columns: Vec<Option<PeriodicColumn<F>>>,

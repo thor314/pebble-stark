@@ -10,7 +10,7 @@
 use std::{
   cmp::PartialEq,
   collections::VecDeque,
-  ops::{Add, Mul, Neg, Sub},
+  ops::{Add, AddAssign, Mul, Neg, Sub},
 };
 
 // TODO(TK 2024-01-09): temp
@@ -98,6 +98,13 @@ impl<F: Field> From<F> for FractionFieldElement<F> {
 impl<F: Field> std::fmt::Display for FractionFieldElement<F> {
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
     write!(f, "{}/{}", self.numerator, self.denominator)
+  }
+}
+
+impl<F: Field> AddAssign for FractionFieldElement<F> {
+  fn add_assign(&mut self, rhs: Self) {
+    self.numerator = self.numerator * rhs.denominator + rhs.numerator * self.denominator;
+    self.denominator *= rhs.denominator;
   }
 }
 

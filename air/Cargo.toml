@@ -9,3 +9,9 @@ edition="2021"
 ark-ff                ="0.4.2"
 algebra               ={ path="../algebra" }
 composition_polynomial={ path="../composition_polynomial" }
+
+[dev-dependencies]
+ark-std="0.4.0"
+# todo: remove ark-test-curves eventually
+ark-test-curves="0.4.2"
+rand           ={ version="0.8.4", features=["std"] }
