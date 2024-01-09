@@ -5,4 +5,5 @@
 mod fields;
 mod polymorphic;
 
+pub use fields::FractionFieldElement;
 pub use polymorphic::{ConstFieldElementSpan, FieldElementSpan, FieldElementVector};
