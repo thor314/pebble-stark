@@ -5,10 +5,10 @@ use std::marker::PhantomData;
 /// use this instead: https://docs.rs/ark-ff/latest/ark_ff/fields/trait.PrimeField.html
 /// usage:
 /// ```
-/// // where before: 
+/// // where before:
 /// // PrimeFieldElement<256, 0>
 /// // now:
-/// // ark_test_curves::
+/// // ark_test_curves::?
 /// ```
 pub struct PrimeFieldElement<NBits, Index> {
   _nbits: PhantomData<NBits>,

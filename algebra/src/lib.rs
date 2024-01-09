@@ -2,6 +2,7 @@
 #![allow(unused_variables)]
 #![allow(dead_code)]
 // todo
+mod domains;
 mod fields;
 mod polymorphic;
 
