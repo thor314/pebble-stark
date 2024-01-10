@@ -95,12 +95,3 @@ pub struct InteractionParams {
   // Number of interaction random elements.
   pub n_interaction_elements: usize,
 }
-
-pub fn assert_on_release(condition: bool, msg: &str) {
-  #[cfg(not(debug_assertions))]
-  {
-    if !condition {
-      panic!("{}", msg);
-    }
-  }
-}

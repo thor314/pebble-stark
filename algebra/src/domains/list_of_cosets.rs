@@ -33,7 +33,7 @@ impl<F: Field> ListOfCosets<F> {
 
   pub fn num_cosets(&self) -> usize { self.cosets_offsets.len() }
 
-  pub fn size(&self) -> usize { self.fft_bases.bases.len() * self.cosets_offsets.len() }
+  // pub fn size(&self) -> usize { self.fft_bases.bases.len() * self.cosets_offsets.len() }
 
   // pub fn element_by_index(&self, coset_index: usize, group_index: usize) -> F{todo!()}
   // pub fn vanishing_polynomial(&self, eval_point: &F) -> F{todo!()}

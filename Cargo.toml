@@ -19,4 +19,5 @@ members=[
   "randomness",
   "stark",
   "statement",
+  "utils",
 ]
