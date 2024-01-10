@@ -8,6 +8,7 @@ mod boundary_constraints;
 mod components;
 mod cpu;
 mod fibonacci;
+mod test_utils;
 mod trace;
 mod trace_context;
 
@@ -16,15 +17,17 @@ use std::{collections::HashMap, option::Option, vec::Vec};
 use algebra::{ConstFieldElementSpan, FieldElementVector};
 use ark_ff::Field;
 use composition_polynomial::CompositionPolynomial;
+use utils::assert_on_release;
 
 /// Temporary type while I figure out what to do with gsl::span
-pub type TempGslSpan<T> = Vec<T>;
+pub type GslSpan<T> = Vec<T>;
 
 // todo(tk): import this from composition_polynomial
 // pub trait TmpCompositionPolynomial<F: Field> {}
 
 // doc(tk)
 ///
+// TODO(TK 2024-01-09): work in progress trait
 pub trait Air<F: Field> {
   /// Creates a CompositionPolynomial object based on the given (verifier-chosen) coefficients.
   fn create_composition_polynomial(
@@ -33,10 +36,10 @@ pub trait Air<F: Field> {
     random_coefficients: &ConstFieldElementSpan<F>,
   ) -> Box<CompositionPolynomial<F>>;
 
-  fn trace_length(&self) -> usize;
+  fn trace_length(&self) -> u64;
 
   /// Default to zero
-  fn get_composition_polynomial_degree_bound(&self) -> usize;
+  fn get_composition_polynomial_degree_bound(&self) -> u64;
 
   /// Number of random coefficients that are chosen by the verifier and affect the constraint.
   /// They are the coefficients of the linear combination of the constraints and must be random in
@@ -46,7 +49,7 @@ pub trait Air<F: Field> {
   // refactor(tk): redundant?
   fn get_num_constraints(&self) -> usize { self.num_random_coefficients() }
 
-  // get mask
+  // todo: get mask?
 
   /// helper for `get_n_columns_first`
   fn num_columns(&self) -> usize;
@@ -75,10 +78,6 @@ pub trait Air<F: Field> {
       None => self.num_columns(),
     }
   }
-
-  // todo(tk): verify ok to drop ths
-  //  protected:
-  //   uint64_t trace_length_;
 }
 
 /// Helper NewType for the `get_mask` of the Air.
@@ -92,13 +91,4 @@ pub struct InteractionParams {
   pub n_columns_second:       usize,
   // Number of interaction random elements.
   pub n_interaction_elements: usize,
-}
-
-pub fn assert_on_release(condition: bool, msg: &str) {
-  #[cfg(not(debug_assertions))]
-  {
-    if !condition {
-      panic!("{}", msg);
-    }
-  }
 }

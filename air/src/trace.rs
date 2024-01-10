@@ -29,6 +29,14 @@ impl<F: Field> Trace<F> {
   ) {
     self.values[column][index] = *field_element;
   }
+
+  pub fn is_empty(&self) -> bool { self.values.is_empty() || self.values[0].is_empty() }
+}
+
+impl<F: Field> std::ops::Index<usize> for Trace<F> {
+  type Output = FieldElementVector<F>;
+
+  fn index(&self, index: usize) -> &Self::Output { &self.values[index] }
 }
 
 impl<F: Field> From<Vec<Vec<F>>> for Trace<F> {

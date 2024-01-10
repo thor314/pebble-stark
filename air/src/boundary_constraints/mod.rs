@@ -2,7 +2,7 @@
 use ark_ff::Field;
 use composition_polynomial::PeriodicColumn;
 
-use crate::TempGslSpan; // Using ark-ff crate for field generics
+use crate::GslSpan; // Using ark-ff crate for field generics
 
 /// Creates a periodic column
 /// which satisfies:
@@ -23,8 +23,8 @@ use crate::TempGslSpan; // Using ark-ff crate for field generics
 /// - `rows`: span of row indices.
 /// - `values`: span of field element values.
 pub fn create_boundary_periodic_column<F: Field>(
-  rows: TempGslSpan<usize>,
-  values: TempGslSpan<F>,
+  rows: GslSpan<usize>,
+  values: GslSpan<F>,
   trace_length: usize,
   trace_generator: F,
   trace_offset: F,
@@ -34,7 +34,7 @@ pub fn create_boundary_periodic_column<F: Field>(
 
 /// Creates a periodic column with y-values all set to 1.
 pub fn create_base_boundary_periodic_column<F: Field>(
-  rows: TempGslSpan<usize>,
+  rows: GslSpan<usize>,
   trace_length: u64,
   trace_generator: F,
   trace_offset: F,
@@ -44,7 +44,7 @@ pub fn create_base_boundary_periodic_column<F: Field>(
 
 /// Creates a periodic column that is zero at the specified rows and invertible elsewhere.
 pub fn create_vanishing_periodic_column<F: Field>(
-  rows: TempGslSpan<usize>,
+  rows: GslSpan<usize>,
   trace_length: u64,
   trace_generator: F,
   trace_offset: F,
@@ -54,7 +54,7 @@ pub fn create_vanishing_periodic_column<F: Field>(
 
 /// Creates a periodic column that is zero on rows {0, step, 2*step, ...} except for the given rows.
 pub fn create_complement_vanishing_periodic_column<F: Field>(
-  rows: TempGslSpan<usize>,
+  rows: GslSpan<usize>,
   step: u64,
   trace_length: u64,
   trace_generator: F,

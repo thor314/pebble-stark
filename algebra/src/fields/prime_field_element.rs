@@ -1,10 +1,15 @@
 use std::marker::PhantomData;
 
-// use super::big_prime_constants::BigPrimeConstants;
-
 // Define a struct representing a prime field element.
 // The NBits and Index are generic parameters.
-// todo: probably get rid of this and use Arkworks PrimeFieldElement
+/// use this instead: https://docs.rs/ark-ff/latest/ark_ff/fields/trait.PrimeField.html
+/// usage:
+/// ```
+/// // where before:
+/// // PrimeFieldElement<256, 0>
+/// // now:
+/// // ark_test_curves::?
+/// ```
 pub struct PrimeFieldElement<NBits, Index> {
   _nbits: PhantomData<NBits>,
   _index: PhantomData<Index>,
@@ -16,7 +21,3 @@ impl<NBits, Index> From<usize> for PrimeFieldElement<NBits, Index> {
     todo!()
   }
 }
-
-// impl<NBits, Index> PrimeFieldElement<NBits, Index> {
-//   // ... other methods as needed
-// }

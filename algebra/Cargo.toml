@@ -6,6 +6,10 @@ edition="2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-ark-ff="0.4.2"
-num-bigint="0.4.4"
+fft_utils={ path="../fft_utils" }
+
+ark-ff     ="0.4.2"
+num-bigint ="0.4.4"
 lazy_static="1.4.0"
+rand       ="0.8.5"
+serde      ={ version="1.0", features=["derive"] }

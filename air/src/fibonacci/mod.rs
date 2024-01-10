@@ -1,8 +1,9 @@
 mod fibonacci_trace_context;
 
 use ark_ff::Field;
+use utils::assert_on_release;
 
-use crate::{assert_on_release, trace::Trace};
+use crate::trace::Trace;
 
 pub struct FibonacciAir<F: Field> {
   _phantom: std::marker::PhantomData<F>,
