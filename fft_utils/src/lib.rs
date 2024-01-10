@@ -3,4 +3,4 @@
 #![allow(dead_code)]
 
 mod fft_bases;
-pub use fft_bases::FftBases;
+pub use fft_bases::{Base, FftBases};

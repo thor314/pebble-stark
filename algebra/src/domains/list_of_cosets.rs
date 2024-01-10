@@ -1,21 +1,21 @@
 //! mirror: https://github.com/starkware-libs/stone-prover/blob/00b274b55c82077184be4c0758f7bed18950eaba/src/starkware/algebra/domains/list_of_cosets.h
 //! mirror: https://github.com/starkware-libs/stone-prover/blob/00b274b55c82077184be4c0758f7bed18950eaba/src/starkware/algebra/domains/list_of_cosets.cc
 
-use ark_ff::Field;
-use fft_utils::FftBases;
+use ark_ff::FftField;
+use fft_utils::{Base, FftBases};
 
 /// ListOfCosets is a union of cosets of a group. Let G be a multiplicative subgroup of the
 /// field of size coset_size, then the instance represents a set which is a union of the
 /// cosets s_0 # G, s_1 # G , ... , s_{n_cosets-1} # G (where # is the group opperation).
 #[derive(Clone, Debug)]
-pub struct ListOfCosets<F: Field> {
-  pub fft_bases:       Box<FftBases<F>>,
+pub struct ListOfCosets<F: FftField, B: Base> {
+  pub fft_bases:       Box<FftBases<F, B>>,
   pub cosets_offsets:  Vec<F>,
   pub trace_generator: F,
 }
 
 // intentionally unimplemented: group(), get_field(), trace_generator(), cosets_offsets(), bases
-impl<F: Field> ListOfCosets<F> {
+impl<F: FftField, B: Base> ListOfCosets<F, B> {
   /// Constructs an instance with a group of size coset_size and the number of cosets is n_cosets.
   /// The cosets offsets are as follows:
   ///

@@ -78,10 +78,6 @@ pub trait Air<F: Field> {
       None => self.num_columns(),
     }
   }
-
-  // todo(tk): verify ok to drop ths
-  //  protected:
-  //   uint64_t trace_length_;
 }
 
 /// Helper NewType for the `get_mask` of the Air.
