@@ -1,7 +1,8 @@
 use ark_ff::Field;
+use utils::assert_on_release;
 
 use super::FibonacciAir;
-use crate::{assert_on_release, trace::Trace, trace_context::TraceContext};
+use crate::{trace::Trace, trace_context::TraceContext};
 
 pub struct FibonacciTraceContext<F: Field> {
   // todo(tk)

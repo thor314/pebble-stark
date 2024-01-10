@@ -17,6 +17,7 @@ use std::{collections::HashMap, option::Option, vec::Vec};
 use algebra::{ConstFieldElementSpan, FieldElementVector};
 use ark_ff::Field;
 use composition_polynomial::CompositionPolynomial;
+use utils::assert_on_release;
 
 /// Temporary type while I figure out what to do with gsl::span
 pub type GslSpan<T> = Vec<T>;
