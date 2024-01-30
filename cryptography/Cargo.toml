@@ -1,0 +1,18 @@
+[package]
+name = "cryptography"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rs_merkle = "1.4.1"
+ark-poly = "0.4.2"
+ark-ff = "0.4.2"
+ark-test-curves = "0.4.2"
+sha2 = "0.10.8"
+rand = { version = "0.8", features = [ "std", "std_rng" ] }
+sha3 = "0.10"
+thiserror = "1.0.38"
+serde = { version = "1.0", features = ["derive"] }
+rayon = { version = "1.8.0", optional = true }
