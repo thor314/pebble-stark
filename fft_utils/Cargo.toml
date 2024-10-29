@@ -8,4 +8,4 @@ edition = "2021"
 [dependencies]
 utils = { path = "../utils" }
 ark-ff = "0.4.2"
-ark-std = "0.4.0"
+ark-std = "0.5.0"

@@ -13,6 +13,6 @@ utils = { path = "../utils" }
 
 #[dev-dependencies]
 # todo: remove ark-test-curves eventually
-ark-std        ="0.4.0"
+ark-std        ="0.5.0"
 ark-test-curves="0.4.2"
 rand           ={ version="0.8.4", features=["std"] }
