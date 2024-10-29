@@ -8,7 +8,7 @@ edition="2021"
 [dependencies]
 fft_utils={ path="../fft_utils" }
 
-ark-ff     ="0.4.2"
+ark-ff     ="0.5.0"
 num-bigint ="0.4.4"
 lazy_static="1.4.0"
 rand       ="0.8.5"
